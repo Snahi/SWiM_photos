@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "427548417382",
+    "firebase_url": "https://swimphotos-f728f.firebaseio.com",
+    "project_id": "swimphotos-f728f",
+    "storage_bucket": "swimphotos-f728f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:427548417382:android:cb684b500583e9cc",
+        "android_client_info": {
+          "package_name": "com.snavi.swim_photos"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdJi36BcYHeqOQhwh8sWuJf1f8KGjFb8o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "427548417382-8p8v37fkugomr50cr14aspu23gno05li.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

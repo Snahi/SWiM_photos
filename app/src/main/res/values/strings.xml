@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SWiM_photos</string>
+    <string name="swim_photos_image_description">Image</string>
+    <string name="swim_photos_default_title">Default title</string>
+    <string name="default_date">dd/mm/rrrr</string>
+    <string name="add_image_title_hint">Title</string>
+    <string name="add_image_auto_tags_radio_text">Automatic tags</string>
+    <string name="add_image_url_hint">Image url</string>
+    <string name="add_image_date_hint">Date</string>
+    <string name="add_image_tags_hint">Comma separated tags, e.g. cat,dog,car</string>
+    <string name="add_image_add_button_text">Add</string>
+    <string name="add_image_url_error">Invalid url</string>
+    <string name="add_image_title_error">Invalid title</string>
+    <string name="add_image_date_error">Invalid date</string>
+    <string name="add_image_tags_error">Invalid tags. Tags can contain letters and numbers only and are separated by comma</string>
+    <string name="add_image_title_label">title:</string>
+    <string name="add_image_url_label">url:</string>
+    <string name="add_image_date_label">date:</string>
+    <string name="main_activity_empty_recyler_view_info">You haven\'t added any photos so far. You can do that by
+        clickig + in the top right corner
+    </string>
+</resources>
