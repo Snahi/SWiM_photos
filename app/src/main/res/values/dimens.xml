@@ -36,4 +36,12 @@
     <dimen name="add_image_label_margin">8dp</dimen>
     <dimen name="photo_card_tags_margin_end">8dp</dimen>
     <dimen name="main_activity_empty_recycler_text_padding">40dp</dimen>
+    <dimen name="fragment_photo_data_standard_margin">8dp</dimen>
+    <dimen name="fragment_photo_data_label_text_size">16sp</dimen>
+    <dimen name="fragment_photo_data_title_text_size">16sp</dimen>
+    <dimen name="fragment_photo_data_top_margin">24dp</dimen>
+    <dimen name="fragment_photo_data_data_text_size">16sp</dimen>
+    <dimen name="activity_lookup_similar_images_text_size">24sp</dimen>
+    <dimen name="activity_lookup_similar_images_label_padding_bottom">24dp</dimen>
+    <dimen name="fragment_photo_data_vertical_guideline_begin">78dp</dimen>
 </resources>

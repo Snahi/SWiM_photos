@@ -1,5 +1,7 @@
 package com.snavi.swim_photos.display_images
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.support.v7.widget.CardView
@@ -14,6 +16,7 @@ import com.google.firebase.ml.vision.common.FirebaseVisionImage
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabel
 import com.google.firebase.ml.vision.label.FirebaseVisionImageLabeler
 import com.snavi.swim_photos.R
+import com.snavi.swim_photos.activities.LookupActivity
 import com.snavi.swim_photos.images.IMAGE_FAIL_TAG
 import com.snavi.swim_photos.images.Image
 import com.squareup.picasso.Picasso
@@ -25,21 +28,53 @@ import java.lang.Math.min
 const val MAX_NUMBER_OF_TAGS_TO_DISPLAY = 3
 
 
-class ImagesAdapter(val m_images: ArrayList<Image>) : RecyclerView.Adapter<ImagesAdapter.PhotoHolder>() {
+class ImagesAdapter(val m_images: ArrayList<Image>, val m_mainContext: Context) : RecyclerView.Adapter<ImagesAdapter.PhotoHolder>() {
 
 
     companion object {
         const val DATE_FORMAT = "dd-MM-yyyy"
+        const val TAGS_SEPARATOR = ","
+
+
+
+        fun createTagsString(a_tags: Collection<String>): String
+        {
+            val res = StringBuilder()
+
+            for (tag in a_tags) res.append("$tag$TAGS_SEPARATOR ")
+
+            if (res.isNotEmpty()) return res.dropLast(2).toString() // drop comma
+
+            return res.toString()
+        }
+
+
+
+        fun getTagsFromString(a_tagsString: String): ArrayList<String>
+        {
+            val tagsList: List<String> = a_tagsString.split(ImagesAdapter.TAGS_SEPARATOR)
+
+            // clean from blank spaces
+            val cleanTags = ArrayList<String>(tagsList.size)
+
+            for (tag in tagsList)
+            {
+                cleanTags.add(tag.trim())
+            }
+
+            return cleanTags
+        }
     }
 
 
 
-    class PhotoHolder(val m_card: CardView) : RecyclerView.ViewHolder(m_card) {
+    inner class PhotoHolder(val m_card: CardView) : RecyclerView.ViewHolder(m_card) {
 
         val img     : ImageView = m_card.img_photo_card_photo
         val title   : TextView  = m_card.tv_photo_card_title_of_photo
         val date    : TextView  = m_card.tv_photo_card_date
         val tags    : TextView  = m_card.tv_photo_card_tags
+
     }
 
 
@@ -65,28 +100,27 @@ class ImagesAdapter(val m_images: ArrayList<Image>) : RecyclerView.Adapter<Image
 
         image.into(a_holder.img)
         a_holder.title.text = image.m_title
-        a_holder.date.text = android.text.format.DateFormat.format(DATE_FORMAT, image.m_date)
+
+        val dateFormatted = android.text.format.DateFormat.format(DATE_FORMAT, image.m_date)
+        a_holder.date.text = dateFormatted
 
         if (image.m_autotags) createAutoTags(image.m_url, a_holder.m_card, image.m_tags)
         else a_holder.tags.text = createTagsString(image.m_tags)
+
+
+        // click listener
+        a_holder.m_card.setOnClickListener {
+            val intent = Intent(m_mainContext, LookupActivity::class.java)
+            intent.putExtra(LookupActivity.MAIN_IMG_IDX_KEY, a_holder.adapterPosition)
+
+            intent.putExtra(LookupActivity.IMAGES_KEY, m_images)
+            m_mainContext.startActivity(intent)
+        }
     }
 
 
 
-    private fun createTagsString(a_tags: Collection<String>): String
-    {
-        val res = StringBuilder()
-
-        for (tag in a_tags) res.append("$tag, ")
-
-        if (res.isNotEmpty()) return res.dropLast(2).toString() // drop comma
-
-        return res.toString()
-    }
-
-
-
-    // autotags ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // auto-tags ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     lateinit var target: com.squareup.picasso.Target // only to prevent target from being gcollected
 
@@ -132,7 +166,7 @@ class ImagesAdapter(val m_images: ArrayList<Image>) : RecyclerView.Adapter<Image
                           a_oldTags: ArrayList<String>,
                           a_tagsView: TextView)
     {
-        val lastTagIdx = min(a_firebaseTags.size, MAX_NUMBER_OF_TAGS_TO_DISPLAY - 1)
+        val lastTagIdx = min(a_firebaseTags.size - 1, MAX_NUMBER_OF_TAGS_TO_DISPLAY - 1)
 
         for (tagIdx in 0..lastTagIdx) a_oldTags.add(a_firebaseTags[tagIdx].text)
 

@@ -12,11 +12,23 @@
     <string name="add_image_url_error">Invalid url</string>
     <string name="add_image_title_error">Invalid title</string>
     <string name="add_image_date_error">Invalid date</string>
-    <string name="add_image_tags_error">Invalid tags. Tags can contain letters and numbers only and are separated by comma</string>
+    <string name="add_image_tags_error">Invalid tags. Tags can contain letters and numbers only and are separated by
+        comma
+    </string>
     <string name="add_image_title_label">title:</string>
     <string name="add_image_url_label">url:</string>
     <string name="add_image_date_label">date:</string>
     <string name="main_activity_empty_recyler_view_info">You haven\'t added any photos so far. You can do that by
         clickig + in the top right corner
     </string>
+    <string name="full_screen_image_content_description">full screen image</string>
+    <string name="fragment_photo_data_title_label">Title</string>
+    <string name="fragment_photo_data_default_title">This is place for the title</string>
+    <string name="fragment_photo_data_url_label">URL</string>
+    <string name="fragment_photo_data_default_url">This is place for the URL</string>
+    <string name="fragment_photo_data_date_label">Date</string>
+    <string name="fragment_photo_data_default_date">This is place for the date</string>
+    <string name="fragment_photo_data_tags_label">tags</string>
+    <string name="fragment_photo_data_default_tags">This is place for tags</string>
+    <string name="tv_activity_lookup_similar_images_label">Similar images:</string>
 </resources>

@@ -7,16 +7,14 @@ import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.snavi.swim_photos.R
 import com.snavi.swim_photos.display_images.ImagesAdapter
-import com.snavi.swim_photos.display_images.SwipeToDeleteHandler
 import com.snavi.swim_photos.images.Image
+import com.snavi.swim_photos.touch_listeners.SwipeToDeleteHandler
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.photo_card.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -30,9 +28,9 @@ class MainActivity : AppCompatActivity() {
 
     val m_images: ArrayList<Image> = ArrayList()
 
-    lateinit var m_recyclerView     : RecyclerView
-    lateinit var m_layoutManager    : RecyclerView.LayoutManager
-    lateinit var m_adapter          : ImagesAdapter
+    private lateinit var m_recyclerView     : RecyclerView
+    private lateinit var m_layoutManager    : RecyclerView.LayoutManager
+    private lateinit var m_adapter          : ImagesAdapter
 
 
 
@@ -41,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         m_layoutManager = LinearLayoutManager(this)
-        m_adapter       = ImagesAdapter(m_images)
+        m_adapter       = ImagesAdapter(m_images, this)
 
         m_recyclerView  = rl_photos.apply {
             setHasFixedSize(false)
@@ -49,8 +47,9 @@ class MainActivity : AppCompatActivity() {
             adapter = m_adapter
         }
 
+
         // remove
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler {a_holder ->
+        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler { a_holder ->
             val holderPosition = a_holder.adapterPosition
             m_images.removeAt(holderPosition)
             m_adapter.notifyItemRemoved(holderPosition)
