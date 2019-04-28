@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent">
+
+
+    <TextView
+            android:text="@string/fragment_photo_data_title_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_title_label"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fragment_photo_data_standard_margin"
+            android:layout_marginTop="@dimen/fragment_photo_data_standard_margin"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="@dimen/fragment_photo_data_label_text_size" android:textStyle="bold"/>
+    <TextView
+            android:text="@string/fragment_photo_data_default_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_title"
+            android:textSize="@dimen/fragment_photo_data_title_text_size"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="@string/fragment_photo_data_url_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_url_label"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fragment_photo_data_standard_margin"
+            android:textSize="@dimen/fragment_photo_data_label_text_size" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_photo_data_title" android:textStyle="bold"/>
+    <TextView
+            android:text="@string/fragment_photo_data_default_url"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_url"
+            android:textSize="@dimen/fragment_photo_data_data_text_size"
+            android:textStyle="italic" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_photo_data_title" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="@string/fragment_photo_data_date_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_date_label"
+            android:textSize="@dimen/fragment_photo_data_label_text_size"
+            android:layout_marginStart="@dimen/fragment_photo_data_standard_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/tv_fragment_photo_data_url"
+            android:textStyle="bold"/>
+    <TextView
+            android:text="@string/fragment_photo_data_default_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_date"
+            android:textSize="@dimen/fragment_photo_data_data_text_size" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_photo_data_url" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/guideline" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    <TextView
+            android:text="@string/fragment_photo_data_tags_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_tags_label"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/fragment_photo_data_standard_margin"
+            android:textSize="@dimen/fragment_photo_data_label_text_size"
+            android:textStyle="bold" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_photo_data_date"/>
+    <TextView
+            android:text="@string/fragment_photo_data_default_tags"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_fragment_photo_data_tags"
+            android:textSize="@dimen/fragment_photo_data_data_text_size"
+            app:layout_constraintStart_toStartOf="@+id/guideline" android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp" app:layout_constraintTop_toBottomOf="@+id/tv_fragment_photo_data_date"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:id="@+id/guideline"
+                                          android:orientation="vertical"
+                                          app:layout_constraintGuide_begin="@dimen/fragment_photo_data_vertical_guideline_begin"/>
+</android.support.constraint.ConstraintLayout>
