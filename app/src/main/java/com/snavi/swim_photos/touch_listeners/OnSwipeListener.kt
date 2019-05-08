@@ -33,6 +33,7 @@ class OnSwipeListener(m_context: Context,
     }
 
 
+
     private inner class GestureListener : SimpleOnGestureListener() {
 
         override fun onDown(e: MotionEvent): Boolean

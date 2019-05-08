@@ -48,18 +48,22 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        // remove
-        val itemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler { a_holder ->
-            val holderPosition = a_holder.adapterPosition
-            m_images.removeAt(holderPosition)
-            m_adapter.notifyItemRemoved(holderPosition)
-            hideEmptyTextMessageIfNecessary()
-        })
-
+        // remove on swipe
+        val itemTouchHelper = getItemTouchHelper()
         itemTouchHelper.attachToRecyclerView(m_recyclerView)
 
         hideEmptyTextMessageIfNecessary()
     }
+
+
+
+    private fun getItemTouchHelper(): ItemTouchHelper = ItemTouchHelper(SwipeToDeleteHandler { a_holder ->
+        val holderPosition = a_holder.adapterPosition
+        m_images.removeAt(holderPosition)
+        m_adapter.notifyItemRemoved(holderPosition)
+        hideEmptyTextMessageIfNecessary()
+    })
+
 
 
 

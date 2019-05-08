@@ -25,7 +25,7 @@ class LookupActivity : FragmentActivity() {
     {
         const val MAX_NUM_OF_SIMILAR_PHOTOS = 6
 
-        const val IMAGES_KEY    = "IMAGES"
+        const val IMAGES_KEY        = "IMAGES"
         const val MAIN_IMG_IDX_KEY  = "MAIN_IMG"
     }
 
@@ -43,21 +43,42 @@ class LookupActivity : FragmentActivity() {
         setContentView(R.layout.activity_lookup)
 
         // fields
-        m_images    = intent.getSerializableExtra(IMAGES_KEY) as ArrayList<Image>
+        m_images     = intent.getSerializableExtra(IMAGES_KEY) as ArrayList<Image>
         m_mainImgIdx = intent.getIntExtra(MAIN_IMG_IDX_KEY, -1)
-        m_mainImg = m_images[m_mainImgIdx]
+        m_mainImg    = m_images[m_mainImgIdx]
 
+        // create fragments
+        val fullScreenPhotoFragment = createFullScreenPhotoFragment()
+        val photoDataFragment       = createPhotoDataFragment()
+        val similarPhotosFragment   = createSimilarPhotosFragment()
 
-        // fragments
         val fragmentTransaction = supportFragmentManager.beginTransaction()
+        fragmentTransaction.add(R.id.fl_activity_lookup_full_screen_holder,     fullScreenPhotoFragment)
+        fragmentTransaction.add(R.id.fl_activity_lookup_photo_data_holder,      photoDataFragment)
+        fragmentTransaction.add(R.id.fl_activity_lookup_similar_photos_holder,  similarPhotosFragment)
 
-        // fragment full screen photo
+        fragmentTransaction.commit()
+
+        // so that when user swipes on text "similar photos", it also returns. Other swipeListeners are in fragments
+        setBackSwipeOnSimilarLabel()
+    }
+
+
+
+    private fun createFullScreenPhotoFragment(): FullScreenImageFragment
+    {
         val bundleWithPhoto = Bundle()
         bundleWithPhoto.putString(FullScreenImageFragment.IMAGE_KEY, m_mainImg.m_url)
         val fullScreenPhotoFragment = FullScreenImageFragment()
         fullScreenPhotoFragment.arguments = bundleWithPhoto
 
-        // fragment photo data
+        return fullScreenPhotoFragment
+    }
+
+
+
+    private fun createPhotoDataFragment(): PhotoDataFragment
+    {
         val bundleWithPhotoData = Bundle()
         bundleWithPhotoData.putString(PhotoDataFragment.TITLE_KEY, m_mainImg.m_title)
         bundleWithPhotoData.putString(PhotoDataFragment.URL_KEY, m_mainImg.m_url)
@@ -66,19 +87,25 @@ class LookupActivity : FragmentActivity() {
         val photoDataFragment = PhotoDataFragment()
         photoDataFragment.arguments = bundleWithPhotoData
 
-        // fragment similar photos
+        return photoDataFragment
+    }
+
+
+
+    private fun createSimilarPhotosFragment(): SimilarPhotosFragment
+    {
         val bundleWithSimilarPhotos = Bundle()
         bundleWithSimilarPhotos.putSerializable(SimilarPhotosFragment.SIMILAR_PHOTOS_KEY, findSimilarImages())
         val similarPhotosFragment = SimilarPhotosFragment()
         similarPhotosFragment.arguments = bundleWithSimilarPhotos
 
-        fragmentTransaction.add(R.id.fl_activity_lookup_full_screen_holder,     fullScreenPhotoFragment)
-        fragmentTransaction.add(R.id.fl_activity_lookup_photo_data_holder,      photoDataFragment)
-        fragmentTransaction.add(R.id.fl_activity_lookup_similar_photos_holder,  similarPhotosFragment)
+        return similarPhotosFragment
+    }
 
-        fragmentTransaction.commit()
 
-        // so that when user swipes on text, it also returns. Other swipeListeners are in fragments
+
+    private fun setBackSwipeOnSimilarLabel()
+    {
         tv_activity_lookup_similar_label.setOnTouchListener(
             OnSwipeListener(this,
                 onSwipeRight =
@@ -98,21 +125,15 @@ class LookupActivity : FragmentActivity() {
         val imagesWithSimilarity = ArrayList<Pair<Int, Image>>(MAX_NUM_OF_SIMILAR_PHOTOS)   // first in pair - size of intersection with main image
 
         for (img in m_images)
-        {
             imagesWithSimilarity.add(Pair(intersectSize(img), img))
-        }
 
-        imagesWithSimilarity.removeAt(m_mainImgIdx)
-
-        imagesWithSimilarity.sortByDescending {it.first}
+        imagesWithSimilarity.removeAt(m_mainImgIdx)         // remove itself
+        imagesWithSimilarity.sortByDescending {it.first}    // sort by num of equal tags
 
         // take most similar ones
         val res = ArrayList<Image>(MAX_NUM_OF_SIMILAR_PHOTOS)
-
         for (i in 0..min(MAX_NUM_OF_SIMILAR_PHOTOS - 1, imagesWithSimilarity.size - 1))
-        {
-            if (imagesWithSimilarity[i].first > 0) res.add(imagesWithSimilarity[i].second)  // must have at least one common tag
-        }
+            if (imagesWithSimilarity[i].first > 0) res.add(imagesWithSimilarity[i].second)      // must have at least one common tag
 
         return res
     }

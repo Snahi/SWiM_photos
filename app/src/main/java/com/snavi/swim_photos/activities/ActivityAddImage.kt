@@ -101,11 +101,10 @@ class ActivityAddImage : AppCompatActivity() {
     {
         if (a_hasFocus)
         {
-            val calendar = Calendar.getInstance()
-
-            val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+            val calendar     = Calendar.getInstance()
+            val currentDay   = calendar.get(Calendar.DAY_OF_MONTH)
             val currentMonth = calendar.get(Calendar.MONTH)
-            val currentYear = calendar.get(Calendar.YEAR)
+            val currentYear  = calendar.get(Calendar.YEAR)
 
             val datePickerDialog = DatePickerDialog(
                 this,
@@ -188,6 +187,7 @@ class ActivityAddImage : AppCompatActivity() {
 
 
 
+    // errors //////////////////////////////////////////////////////////////////////////////////////////////////////////
     private fun areAllFieldsCorrect(): Boolean = isTitleValid() && isUrlValid() && areTagsValid()
 
 
@@ -203,6 +203,7 @@ class ActivityAddImage : AppCompatActivity() {
 
 
 
+    // process inputs //////////////////////////////////////////////////////////////////////////////////////////////////
     private fun getDate(): Calendar
     {
         if (editText_add_image_date.text.isNotBlank())

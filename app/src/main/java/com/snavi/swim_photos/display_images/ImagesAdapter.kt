@@ -57,10 +57,7 @@ class ImagesAdapter(val m_images: ArrayList<Image>, val m_mainContext: Context) 
             // clean from blank spaces
             val cleanTags = ArrayList<String>(tagsList.size)
 
-            for (tag in tagsList)
-            {
-                cleanTags.add(tag.trim())
-            }
+            for (tag in tagsList) cleanTags.add(tag.trim())
 
             return cleanTags
         }
@@ -68,13 +65,12 @@ class ImagesAdapter(val m_images: ArrayList<Image>, val m_mainContext: Context) 
 
 
 
-    inner class PhotoHolder(val m_card: CardView) : RecyclerView.ViewHolder(m_card) {
-
+    inner class PhotoHolder(val m_card: CardView) : RecyclerView.ViewHolder(m_card)
+    {
         val img     : ImageView = m_card.img_photo_card_photo
         val title   : TextView  = m_card.tv_photo_card_title_of_photo
         val date    : TextView  = m_card.tv_photo_card_date
         val tags    : TextView  = m_card.tv_photo_card_tags
-
     }
 
 
@@ -107,8 +103,13 @@ class ImagesAdapter(val m_images: ArrayList<Image>, val m_mainContext: Context) 
         if (image.m_autotags) createAutoTags(image.m_url, a_holder.m_card, image.m_tags)
         else a_holder.tags.text = createTagsString(image.m_tags)
 
+        setHolderOnClickListener(a_holder)
+    }
 
-        // click listener
+
+
+    private fun setHolderOnClickListener(a_holder: PhotoHolder)
+    {
         a_holder.m_card.setOnClickListener {
             val intent = Intent(m_mainContext, LookupActivity::class.java)
             intent.putExtra(LookupActivity.MAIN_IMG_IDX_KEY, a_holder.adapterPosition)
@@ -127,11 +128,9 @@ class ImagesAdapter(val m_images: ArrayList<Image>, val m_mainContext: Context) 
     private fun createAutoTags(a_image: String, a_card: CardView, a_oldTags: ArrayList<String>)
     {
         target = object: com.squareup.picasso.Target {
-            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {
-            }
+            override fun onPrepareLoad(placeHolderDrawable: Drawable?) {}
 
-            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
-            }
+            override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {}
 
             override fun onBitmapLoaded(a_image: Bitmap?, from: Picasso.LoadedFrom?) {
                 if (a_image == null) return

@@ -47,7 +47,6 @@ class SimilarPhotosFragment : Fragment() {
             adapter         = m_adapter
         }
 
-
         m_recyclerView.setOnTouchListener(OnSwipeListener(context!!,
             onSwipeRight =
             {
